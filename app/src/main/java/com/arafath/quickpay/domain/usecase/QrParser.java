@@ -45,6 +45,9 @@ public final class QrParser {
                 id = json.get("merchantId").getAsString();
             }
             String name = json.has("name") ? json.get("name").getAsString() : null;
+            if (name == null && json.has("merchantName")) {
+                name = json.get("merchantName").getAsString();
+            }
             if (type == null || id == null || id.isEmpty()) {
                 return null;
             }
