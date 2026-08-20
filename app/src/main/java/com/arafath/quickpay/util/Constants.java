@@ -2,7 +2,7 @@ package com.arafath.quickpay.util;
 
 public final class Constants {
 
-    public static final String BASE_URL = "http://10.0.2.2:5000/api/";
+    public static final String BASE_URL = "http://10.0.2.2:8080/api/";
 
     public static final String QR_TYPE_USER = "QUICKPAY_USER";
     public static final String QR_TYPE_MERCHANT = "QUICKPAY_MERCHANT";
