@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.arafath.quickpay.ui.auth.SplashFragment"
+        android:label="Splash">
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.arafath.quickpay.ui.auth.LoginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.arafath.quickpay.ui.auth.RegisterFragment"
+        android:label="Register">
+        <action
+            android:id="@+id/action_register_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.arafath.quickpay.ui.home.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_addMoney"
+            app:destination="@id/addMoneyFragment" />
+        <action
+            android:id="@+id/action_home_to_sendMoney"
+            app:destination="@id/sendMoneyFragment" />
+        <action
+            android:id="@+id/action_home_to_receive"
+            app:destination="@id/receiveFragment" />
+        <action
+            android:id="@+id/action_home_to_merchantPayment"
+            app:destination="@id/merchantPaymentFragment" />
+        <action
+            android:id="@+id/action_home_to_history"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_home_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addMoneyFragment"
+        android:name="com.arafath.quickpay.ui.wallet.AddMoneyFragment"
+        android:label="Add Money">
+        <action
+            android:id="@+id/action_addMoney_to_result"
+            app:destination="@id/paymentResultFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sendMoneyFragment"
+        android:name="com.arafath.quickpay.ui.sendmoney.SendMoneyFragment"
+        android:label="Send Money">
+        <action
+            android:id="@+id/action_sendMoney_to_result"
+            app:destination="@id/paymentResultFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/receiveFragment"
+        android:name="com.arafath.quickpay.ui.receive.ReceiveFragment"
+        android:label="Receive" />
+
+    <fragment
+        android:id="@+id/merchantPaymentFragment"
+        android:name="com.arafath.quickpay.ui.payment.MerchantPaymentFragment"
+        android:label="Pay Merchant">
+        <action
+            android:id="@+id/action_merchantPayment_to_result"
+            app:destination="@id/paymentResultFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentResultFragment"
+        android:name="com.arafath.quickpay.ui.transaction.PaymentResultFragment"
+        android:label="Result">
+        <action
+            android:id="@+id/action_result_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.arafath.quickpay.ui.transaction.TransactionHistoryFragment"
+        android:label="History">
+        <action
+            android:id="@+id/action_history_to_detail"
+            app:destination="@id/transactionDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionDetailFragment"
+        android:name="com.arafath.quickpay.ui.transaction.TransactionDetailFragment"
+        android:label="Transaction Details" />
+
+</navigation>

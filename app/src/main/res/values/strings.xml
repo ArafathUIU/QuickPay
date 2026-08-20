@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">QuickPay</string>
+
+    <string name="splash_title">QuickPay</string>
+    <string name="splash_tagline">Fast. Secure. Simple payments.</string>
+
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Sign in to your QuickPay wallet</string>
+    <string name="login_phone_label">Phone number</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_button">Login</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_register_link">Create one</string>
+
+    <string name="register_title">Create account</string>
+    <string name="register_subtitle">Join QuickPay in seconds</string>
+    <string name="register_name_label">Full name</string>
+    <string name="register_email_label">Email</string>
+    <string name="register_confirm_password_label">Confirm password</string>
+    <string name="register_pin_label">Transaction PIN (4 digits)</string>
+    <string name="register_button">Register</string>
+
+    <string name="home_greeting">Hello, %1$s</string>
+    <string name="home_balance_label">Available Balance</string>
+    <string name="action_add_money">Add Money</string>
+    <string name="action_send_money">Send Money</string>
+    <string name="action_receive">Receive</string>
+    <string name="action_scan_pay">Scan QR</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="view_all">View all</string>
+    <string name="no_transactions">No transactions yet</string>
+    <string name="logout">Logout</string>
+    <string name="history">History</string>
+
+    <string name="add_money_title">Add Money</string>
+    <string name="add_money_subtitle">Simulated top-up from your bank</string>
+    <string name="amount_label">Amount (BDT)</string>
+    <string name="add_money_confirm">Add Money</string>
+    <string name="add_money_success">Money added successfully!</string>
+
+    <string name="send_money_title">Send Money</string>
+    <string name="recipient_phone_label">Recipient phone</string>
+    <string name="search_button">Search</string>
+    <string name="recipient_found">Recipient found</string>
+    <string name="note_label">Note (optional)</string>
+    <string name="send_money_confirm">Send Money</string>
+    <string name="cannot_send_self">You cannot send money to yourself.</string>
+
+    <string name="receive_title">Receive Money</string>
+    <string name="receive_subtitle">Share this QR to receive payments</string>
+    <string name="receive_wallet_id">Wallet ID</string>
+
+    <string name="merchant_payment_title">Pay Merchant</string>
+    <string name="merchant_category">%1$s</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="wallet_method">QuickPay Wallet</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="confirm_payment">Confirm Payment</string>
+    <string name="total_label">Total</string>
+
+    <string name="pin_title">Enter Transaction PIN</string>
+    <string name="pin_subtitle">Authorize this transaction</string>
+    <string name="pin_cancel">Cancel</string>
+
+    <string name="processing_title">Processing</string>
+    <string name="processing_subtitle">Please wait while we complete your transaction</string>
+
+    <string name="payment_success">Payment Successful</string>
+    <string name="payment_failed">Payment Failed</string>
+    <string name="payment_reversed">Payment Reversed</string>
+    <string name="amount_returned">Amount returned: %1$s</string>
+    <string name="done">Done</string>
+
+    <string name="txn_amount_label">Amount</string>
+    <string name="txn_id_label">Transaction ID</string>
+    <string name="txn_date_label">Date</string>
+    <string name="txn_status_label">Status</string>
+    <string name="txn_method_label">Payment Method</string>
+    <string name="txn_reason_label">Reason</string>
+    <string name="share_receipt">Share Receipt</string>
+
+    <string name="history_title">Transaction History</string>
+    <string name="filter_all">All</string>
+    <string name="filter_payments">Payments</string>
+    <string name="filter_send">Send</string>
+    <string name="filter_add">Add</string>
+    <string name="filter_failed">Failed</string>
+    <string name="filter_reversed">Reversed</string>
+    <string name="empty_history">No transactions here</string>
+
+    <string name="error_invalid_credentials">Invalid credentials</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_invalid_amount">Enter a valid amount</string>
+    <string name="error_insufficient_balance">Insufficient balance</string>
+    <string name="error_recipient_not_found">Recipient not found</string>
+    <string name="error_invalid_qr">This QR code is not supported</string>
+    <string name="error_merchant_invalid">Merchant could not be validated</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="camera_permission_denied">Camera permission is required to scan QR codes</string>
+</resources>
