@@ -8,6 +8,7 @@ import com.arafath.quickpay.data.remote.dto.RegisterRequest;
 import com.arafath.quickpay.domain.model.ApiState;
 import com.arafath.quickpay.domain.model.User;
 import com.arafath.quickpay.domain.model.Wallet;
+import com.arafath.quickpay.util.MainThread;
 import com.arafath.quickpay.util.SessionManager;
 
 import java.util.concurrent.ExecutorService;
@@ -29,7 +30,8 @@ public class AuthRepository {
         this.sessionManager = sessionManager;
     }
 
-    public void register(RegisterRequest request, Callback<User> callback) {
+    public void register(RegisterRequest request, Callback<User> rawCallback) {
+        Callback<User> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<?> response = authApi.register(request).execute();
@@ -44,7 +46,8 @@ public class AuthRepository {
         });
     }
 
-    public void login(String phone, String password, Callback<LoginResult> callback) {
+    public void login(String phone, String password, Callback<LoginResult> rawCallback) {
+        Callback<LoginResult> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Call<com.arafath.quickpay.data.remote.dto.AuthResponse> call = authApi.login(new LoginRequest(phone, password));
@@ -86,6 +89,20 @@ public class AuthRepository {
         void onSuccess(T data);
 
         void onError(String message);
+    }
+
+    private <T> Callback<T> onMain(Callback<T> cb) {
+        return new Callback<T>() {
+            @Override
+            public void onSuccess(T data) {
+                MainThread.post(() -> cb.onSuccess(data));
+            }
+
+            @Override
+            public void onError(String message) {
+                MainThread.post(() -> cb.onError(message));
+            }
+        };
     }
 
     public static class LoginResult {

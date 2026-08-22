@@ -36,7 +36,20 @@ public class TransactionDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String txnId = getArguments() != null ? getArguments().getString(Constants.KEY_TXN_ID) : null;
         if (txnId != null) {
-            transaction = QuickPayApplication.getInstance().getTransactionRepository().getCached(txnId);
+            QuickPayApplication.getInstance().getTransactionRepository()
+                    .getCachedAsync(txnId, new com.arafath.quickpay.data.repository.TransactionRepository.Callback<Transaction>() {
+                        @Override
+                        public void onSuccess(Transaction data) {
+                            transaction = data;
+                            if (getView() != null) {
+                                render(getView());
+                            }
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                        }
+                    });
         }
         render(view);
 

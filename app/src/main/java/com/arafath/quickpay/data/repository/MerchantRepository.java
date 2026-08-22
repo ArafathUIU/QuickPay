@@ -5,6 +5,7 @@ import com.arafath.quickpay.data.remote.api.MerchantApi;
 import com.arafath.quickpay.data.remote.interceptor.ApiErrorParser;
 import com.arafath.quickpay.domain.model.Merchant;
 import com.arafath.quickpay.domain.model.Transaction;
+import com.arafath.quickpay.util.MainThread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +21,8 @@ public class MerchantRepository {
         this.merchantApi = merchantApi;
     }
 
-    public void validateMerchant(String merchantId, Callback<Merchant> callback) {
+    public void validateMerchant(String merchantId, Callback<Merchant> rawCallback) {
+        Callback<Merchant> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<com.arafath.quickpay.data.remote.dto.MerchantDto> response =
@@ -41,7 +43,8 @@ public class MerchantRepository {
         });
     }
 
-    public void pay(double amount, String merchantId, String pin, Callback<Transaction> callback) {
+    public void pay(double amount, String merchantId, String pin, Callback<Transaction> rawCallback) {
+        Callback<Transaction> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<com.arafath.quickpay.data.remote.dto.TransactionDto> response =
@@ -63,5 +66,19 @@ public class MerchantRepository {
         void onSuccess(T data);
 
         void onError(String message);
+    }
+
+    private <T> Callback<T> onMain(Callback<T> cb) {
+        return new Callback<T>() {
+            @Override
+            public void onSuccess(T data) {
+                MainThread.post(() -> cb.onSuccess(data));
+            }
+
+            @Override
+            public void onError(String message) {
+                MainThread.post(() -> cb.onError(message));
+            }
+        };
     }
 }

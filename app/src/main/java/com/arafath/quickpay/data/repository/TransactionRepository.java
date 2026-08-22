@@ -9,6 +9,7 @@ import com.arafath.quickpay.data.remote.api.TransactionApi;
 import com.arafath.quickpay.data.remote.dto.SendMoneyRequest;
 import com.arafath.quickpay.data.remote.interceptor.ApiErrorParser;
 import com.arafath.quickpay.domain.model.Transaction;
+import com.arafath.quickpay.util.MainThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,8 @@ public class TransactionRepository {
         });
     }
 
-    public void syncFromServer(Callback<List<Transaction>> callback) {
+    public void syncFromServer(Callback<List<Transaction>> rawCallback) {
+        Callback<List<Transaction>> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<List<com.arafath.quickpay.data.remote.dto.TransactionDto>> response =
@@ -67,7 +69,8 @@ public class TransactionRepository {
     }
 
     public void sendMoney(String receiverId, String receiverPhone, double amount, String note, String pin,
-                          Callback<Transaction> callback) {
+                          Callback<Transaction> rawCallback) {
+        Callback<Transaction> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<com.arafath.quickpay.data.remote.dto.TransactionDto> response =
@@ -101,9 +104,28 @@ public class TransactionRepository {
         return Mappers.toDomain(transactionDao.getById(transactionId));
     }
 
+    public void getCachedAsync(String transactionId, Callback<Transaction> rawCallback) {
+        Callback<Transaction> callback = onMain(rawCallback);
+        executor.execute(() -> callback.onSuccess(getCached(transactionId)));
+    }
+
     public interface Callback<T> {
         void onSuccess(T data);
 
         void onError(String message);
+    }
+
+    private <T> Callback<T> onMain(Callback<T> cb) {
+        return new Callback<T>() {
+            @Override
+            public void onSuccess(T data) {
+                MainThread.post(() -> cb.onSuccess(data));
+            }
+
+            @Override
+            public void onError(String message) {
+                MainThread.post(() -> cb.onError(message));
+            }
+        };
     }
 }

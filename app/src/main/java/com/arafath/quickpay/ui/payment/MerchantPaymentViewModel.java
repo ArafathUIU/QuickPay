@@ -30,10 +30,18 @@ public class MerchantPaymentViewModel extends ViewModel {
         this.merchantRepository = app.getMerchantRepository();
         this.walletRepository = app.getWalletRepository();
         this.transactionRepository = app.getTransactionRepository();
-        Wallet cached = walletRepository.getCachedWallet();
-        if (cached != null) {
-            balance.setValue(cached.getBalance());
-        }
+        walletRepository.getCachedWalletAsync(new WalletRepository.Callback<Wallet>() {
+            @Override
+            public void onSuccess(Wallet data) {
+                if (data != null) {
+                    balance.setValue(data.getBalance());
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+            }
+        });
     }
 
     public LiveData<ApiState<Merchant>> getValidationState() {

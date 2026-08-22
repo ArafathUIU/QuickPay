@@ -7,6 +7,7 @@ import com.arafath.quickpay.data.remote.dto.AddMoneyRequest;
 import com.arafath.quickpay.data.remote.interceptor.ApiErrorParser;
 import com.arafath.quickpay.domain.model.Transaction;
 import com.arafath.quickpay.domain.model.Wallet;
+import com.arafath.quickpay.util.MainThread;
 import com.arafath.quickpay.util.SessionManager;
 
 import java.util.concurrent.ExecutorService;
@@ -31,7 +32,13 @@ public class WalletRepository {
         return Mappers.toDomain(walletDao.getById(sessionManager.getWalletId()));
     }
 
-    public void fetchWallet(Callback<Wallet> callback) {
+    public void getCachedWalletAsync(Callback<Wallet> rawCallback) {
+        Callback<Wallet> callback = onMain(rawCallback);
+        executor.execute(() -> callback.onSuccess(getCachedWallet()));
+    }
+
+    public void fetchWallet(Callback<Wallet> rawCallback) {
+        Callback<Wallet> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<com.arafath.quickpay.data.remote.dto.WalletDto> response = walletApi.getWallet().execute();
@@ -48,7 +55,8 @@ public class WalletRepository {
         });
     }
 
-    public void addMoney(double amount, String pin, Callback<Transaction> callback) {
+    public void addMoney(double amount, String pin, Callback<Transaction> rawCallback) {
+        Callback<Transaction> callback = onMain(rawCallback);
         executor.execute(() -> {
             try {
                 Response<com.arafath.quickpay.data.remote.dto.TransactionDto> response =
@@ -95,5 +103,19 @@ public class WalletRepository {
         void onSuccess(T data);
 
         void onError(String message);
+    }
+
+    private <T> Callback<T> onMain(Callback<T> cb) {
+        return new Callback<T>() {
+            @Override
+            public void onSuccess(T data) {
+                MainThread.post(() -> cb.onSuccess(data));
+            }
+
+            @Override
+            public void onError(String message) {
+                MainThread.post(() -> cb.onError(message));
+            }
+        };
     }
 }

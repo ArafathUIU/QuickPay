@@ -70,10 +70,18 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void loadBalance() {
-        Wallet cached = walletRepository.getCachedWallet();
-        if (cached != null) {
-            balance.setValue(cached.getBalance());
-        }
+        walletRepository.getCachedWalletAsync(new WalletRepository.Callback<Wallet>() {
+            @Override
+            public void onSuccess(Wallet data) {
+                if (data != null) {
+                    balance.setValue(data.getBalance());
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+            }
+        });
         walletRepository.fetchWallet(new WalletRepository.Callback<Wallet>() {
             @Override
             public void onSuccess(Wallet data) {
