@@ -51,7 +51,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Transaction transaction = items.get(position);
-        holder.title.setText(titleFor(transaction));
+        holder.icon.setImageResource(com.arafath.quickpay.util.TxnVisuals.iconRes(transaction.getType()));
+        holder.icon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(
+                holder.itemView.getContext(), com.arafath.quickpay.util.TxnVisuals.iconTintRes(transaction.getType()))));
+        holder.iconBg.setBackgroundResource(com.arafath.quickpay.util.TxnVisuals.circleBgRes(transaction.getType()));
+        holder.title.setText(com.arafath.quickpay.util.TxnVisuals.titleFor(transaction));
         holder.subtitle.setText(FormatUtils.dateTime(transaction.getCreatedAt()));
         holder.amount.setText(signedAmount(transaction));
         holder.amount.setTextColor(amountColor(holder, transaction));
@@ -67,17 +71,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public int getItemCount() {
         return items.size();
-    }
-
-    private String titleFor(Transaction transaction) {
-        if (transaction.getType() == TransactionType.MERCHANT_PAYMENT) {
-            return transaction.getMerchantName() != null ? transaction.getMerchantName() : "Merchant Payment";
-        }
-        if (transaction.getType() == TransactionType.ADD_MONEY) {
-            return "Added Money";
-        }
-        return transaction.getNote() != null && !transaction.getNote().isEmpty()
-                ? transaction.getNote() : "Send Money";
     }
 
     private String signedAmount(Transaction transaction) {
@@ -116,6 +109,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        final android.widget.ImageView icon;
+        final View iconBg;
         final TextView title;
         final TextView subtitle;
         final TextView amount;
@@ -123,6 +118,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            icon = itemView.findViewById(R.id.itemIcon);
+            iconBg = itemView.findViewById(R.id.itemIconBg);
             title = itemView.findViewById(R.id.itemTitle);
             subtitle = itemView.findViewById(R.id.itemSubtitle);
             amount = itemView.findViewById(R.id.itemAmount);

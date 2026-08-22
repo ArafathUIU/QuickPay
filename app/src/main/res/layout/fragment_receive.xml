@@ -75,7 +75,7 @@
             android:paddingTop="@dimen/spacing_xs"
             android:paddingEnd="@dimen/spacing_md"
             android:paddingBottom="@dimen/spacing_xs"
-            android:textColor="#8A6A1F"
+            android:textColor="@color/accent_text"
             android:textSize="11sp"
             android:textStyle="bold" />
     </LinearLayout>

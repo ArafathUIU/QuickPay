@@ -52,7 +52,7 @@
                         android:layout_gravity="center"
                         android:contentDescription="@string/merchant_payment_title"
                         android:src="@drawable/ic_store"
-                        app:tint="#8A6A1F" />
+                        app:tint="@color/accent_text" />
                 </FrameLayout>
 
                 <LinearLayout

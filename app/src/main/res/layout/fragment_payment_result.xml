@@ -23,10 +23,11 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.google.android.material.progressbar.CircularProgressIndicator
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:indeterminate="true" />
+                android:indeterminate="true"
+                app:indicatorColor="@color/primary" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -70,6 +70,9 @@
             android:id="@+id/action_home_to_profile"
             app:destination="@id/profileFragment" />
         <action
+            android:id="@+id/action_home_to_notifications"
+            app:destination="@id/notificationsFragment" />
+        <action
             android:id="@+id/action_home_to_login"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
@@ -145,5 +148,10 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.arafath.quickpay.ui.notifications.NotificationsFragment"
+        android:label="Notifications" />
 
 </navigation>

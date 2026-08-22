@@ -27,6 +27,7 @@ import com.arafath.quickpay.domain.model.TransactionType;
 import com.arafath.quickpay.domain.usecase.QrParser;
 import com.arafath.quickpay.util.Constants;
 import com.arafath.quickpay.util.FormatUtils;
+import com.arafath.quickpay.util.TxnVisuals;
 import com.google.android.material.snackbar.Snackbar;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.viewAllText).setOnClickListener(v ->
                 navigate(R.id.action_home_to_history));
         view.findViewById(R.id.notificationButton).setOnClickListener(v ->
-                Snackbar.make(view, R.string.notifications_none, Snackbar.LENGTH_SHORT).show());
+                navigate(R.id.action_home_to_notifications));
 
         ImageView balanceToggle = view.findViewById(R.id.balanceToggle);
         balanceToggle.setOnClickListener(v -> {
@@ -160,12 +161,18 @@ public class HomeFragment extends Fragment {
 
     private View buildItemView(LayoutInflater inflater, Transaction transaction) {
         View item = inflater.inflate(R.layout.item_transaction, recentList, false);
+        android.widget.ImageView icon = item.findViewById(R.id.itemIcon);
+        View iconBg = item.findViewById(R.id.itemIconBg);
         TextView title = item.findViewById(R.id.itemTitle);
         TextView subtitle = item.findViewById(R.id.itemSubtitle);
         TextView amount = item.findViewById(R.id.itemAmount);
         TextView status = item.findViewById(R.id.itemStatus);
 
-        title.setText(titleFor(transaction));
+        icon.setImageResource(TxnVisuals.iconRes(transaction.getType()));
+        icon.setImageTintList(android.content.res.ColorStateList.valueOf(getColor(
+                TxnVisuals.iconTintRes(transaction.getType()))));
+        iconBg.setBackgroundResource(TxnVisuals.circleBgRes(transaction.getType()));
+        title.setText(TxnVisuals.titleFor(transaction));
         subtitle.setText(FormatUtils.dateTime(transaction.getCreatedAt()));
         amount.setText(signedAmount(transaction));
         amount.setTextColor(amountColor(transaction));
@@ -207,17 +214,6 @@ public class HomeFragment extends Fragment {
         } else {
             Snackbar.make(requireView(), R.string.error_invalid_qr, Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    private String titleFor(Transaction transaction) {
-        if (transaction.getType() == TransactionType.MERCHANT_PAYMENT) {
-            return transaction.getMerchantName() != null ? transaction.getMerchantName() : "Merchant Payment";
-        }
-        if (transaction.getType() == TransactionType.ADD_MONEY) {
-            return "Added Money";
-        }
-        return transaction.getNote() != null && !transaction.getNote().isEmpty()
-                ? transaction.getNote() : "Send Money";
     }
 
     private String signedAmount(Transaction transaction) {

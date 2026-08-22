@@ -21,11 +21,13 @@
         android:paddingBottom="@dimen/spacing_md">
 
         <FrameLayout
+            android:id="@+id/itemIconBg"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_icon_circle">
 
             <ImageView
+                android:id="@+id/itemIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"

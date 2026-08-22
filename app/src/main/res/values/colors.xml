@@ -27,4 +27,6 @@
     <color name="outline">#7E8B85</color>
     <color name="ripple">#330B6E4F</color>
     <color name="splash_bg">#0B6E4F</color>
+    <color name="screen_bg">#FFFFFF</color>
+    <color name="accent_text">#8A6A1F</color>
 </resources>

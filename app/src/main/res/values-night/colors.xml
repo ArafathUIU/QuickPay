@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark palette: green-tinted neutrals, brand primary unchanged -->
+    <color name="bg">#0F1713</color>
+    <color name="screen_bg">#121A16</color>
+    <color name="card_bg">#18231E</color>
+    <color name="text_primary">#E5EFEA</color>
+    <color name="text_secondary">#9AAFA6</color>
+    <color name="divider">#24322B</color>
+    <color name="outline">#55655E</color>
+
+    <color name="primary_light">#1D3329</color>
+    <color name="primary_container">#1D3329</color>
+    <color name="accent_light">#3A2F14</color>
+    <color name="success_light">#16352A</color>
+    <color name="danger_light">#3A1A18</color>
+    <color name="warning_light">#38260F</color>
+    <color name="accent_text">#F0CB6B</color>
+
+    <color name="surface">#18231E</color>
+</resources>
