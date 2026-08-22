@@ -56,20 +56,28 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/statusIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <FrameLayout
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/success"
-            android:textSize="56sp" />
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:background="@drawable/bg_icon_circle">
+
+            <TextView
+                android:id="@+id/statusIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/success"
+                android:textSize="44sp" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/resultTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/text_primary"
             android:textSize="24sp" />
@@ -216,21 +224,19 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shareButton"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/QuickPay.Button.Outline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/share_receipt"
-            android:textAllCaps="false" />
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:text="@string/share_receipt" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/doneButton"
+            style="@style/QuickPay.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/done"
-            android:textAllCaps="false"
-            app:cornerRadius="12dp" />
+            android:layout_marginTop="@dimen/spacing_md"
+            android:text="@string/done" />
 
     </LinearLayout>
 

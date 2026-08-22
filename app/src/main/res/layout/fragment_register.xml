@@ -18,7 +18,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/register_title"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="24sp" />
 
         <TextView
@@ -31,7 +31,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -47,7 +47,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phoneInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -63,7 +63,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -79,7 +79,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -96,7 +96,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirmPasswordInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -113,7 +113,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pinInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/QuickPay.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -130,23 +130,21 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/registerButton"
+            style="@style/QuickPay.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/register_button"
-            android:textAllCaps="false"
-            android:minHeight="48dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="12dp" />
+            android:text="@string/register_button" />
 
-        <com.google.android.material.progressbar.CircularProgressIndicator
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/registerProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:indeterminate="true"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:indicatorColor="@color/primary" />
 
     </LinearLayout>
 </ScrollView>
