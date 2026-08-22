@@ -1,9 +1,10 @@
 package com.arafath.quickpay.ui.transaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.arafath.quickpay.R;
 import com.arafath.quickpay.domain.model.Transaction;
@@ -45,15 +46,12 @@ public class PaymentResultFragment extends Fragment {
             processingCard.setVisibility(View.GONE);
             resultContent.setVisibility(View.VISIBLE);
             renderResult(view);
+
+            // Celebration animation for successful payments
+            if (transaction != null && transaction.getStatus() == TransactionStatus.SUCCESS) {
+                celebrateSuccess(view);
+            }
         }, 2000);
-
-        view.findViewById(R.id.doneButton).setOnClickListener(v -> {
-            PaymentResultHolder.clear();
-            NavHostFragment.findNavController(PaymentResultFragment.this)
-                    .navigate(R.id.action_result_to_home);
-        });
-
-        view.findViewById(R.id.shareButton).setOnClickListener(v -> shareReceipt());
     }
 
     private void renderResult(View view) {
@@ -87,13 +85,13 @@ public class PaymentResultFragment extends Fragment {
         switch (transaction.getStatus()) {
             case SUCCESS:
                 statusIcon.setText("✓");
-                statusIcon.setTextColor(getColor(R.color.success));
+                statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.success));
                 title.setText(R.string.payment_success);
                 message.setText("Transaction completed successfully.");
                 break;
             case FAILED:
                 statusIcon.setText("✕");
-                statusIcon.setTextColor(getColor(R.color.danger));
+                statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.danger));
                 title.setText(R.string.payment_failed);
                 message.setText(transaction.getFailureReason() != null
                         ? transaction.getFailureReason() : "Payment could not be completed.");
@@ -102,7 +100,7 @@ public class PaymentResultFragment extends Fragment {
                 break;
             case REVERSED:
                 statusIcon.setText("↺");
-                statusIcon.setTextColor(getColor(R.color.warning));
+                statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.warning));
                 title.setText(R.string.payment_reversed);
                 message.setText("Your payment was reversed and the money has been returned to your wallet.");
                 reasonRow.setVisibility(View.VISIBLE);
@@ -113,6 +111,21 @@ public class PaymentResultFragment extends Fragment {
                 title.setText(R.string.processing_title);
                 message.setText(R.string.processing_subtitle);
         }
+    }
+
+    private void celebrateSuccess(View view) {
+        TextView statusIcon = view.findViewById(R.id.statusIcon);
+        // Scale up bounce animation
+        statusIcon.animate()
+                .scaleX(1.3f)
+                .scaleY(1.3f)
+                .setDuration(300)
+                .setStartDelay(500)
+                .withEndAction(() -> statusIcon.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(300))
+                .start();
     }
 
     private String counterpartyName() {
@@ -142,9 +155,5 @@ public class PaymentResultFragment extends Fragment {
         send.setType("text/plain");
         send.putExtra(Intent.EXTRA_TEXT, text);
         startActivity(Intent.createChooser(send, "Share receipt"));
-    }
-
-    private int getColor(int res) {
-        return androidx.core.content.ContextCompat.getColor(requireContext(), res);
     }
 }

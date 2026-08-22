@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/white"
     android:fillViewport="true">
 
     <LinearLayout
@@ -15,11 +15,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/login_title"
-            android:textColor="@color/text_primary"
-            android:textSize="28sp" />
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/login_subtitle"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phoneInputLayout"
@@ -69,7 +69,9 @@
             android:layout_marginTop="24dp"
             android:text="@string/login_button"
             android:textAllCaps="false"
-            app:cornerRadius="12dp" />
+            android:minHeight="48dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp" />
 
         <com.google.android.material.progressbar.CircularProgressIndicator
             android:id="@+id/loginProgress"
