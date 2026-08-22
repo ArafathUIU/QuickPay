@@ -30,7 +30,7 @@ public class HomeViewModel extends ViewModel {
         walletRepository = app.getWalletRepository();
         transactionRepository = app.getTransactionRepository();
 
-        greeting.setValue("Hello, " + (sessionManager.getUserName() != null ? sessionManager.getUserName() : "there"));
+        greeting.setValue("Hello, " + (sessionManager.getUserName() != null ? sessionManager.getUserName() : "there") + " 👋");
         transactionRepository.loadLocalTransactions();
     }
 

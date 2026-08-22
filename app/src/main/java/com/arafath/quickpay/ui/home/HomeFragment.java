@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,7 +38,9 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
     private TextView balanceText;
     private LinearLayout recentList;
-    private TextView emptyRecentText;
+    private View emptyRecentText;
+    private Double lastBalance;
+    private boolean balanceHidden = false;
     private final ActivityResultLauncher<ScanOptions> scanLauncher = registerForActivityResult(
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
@@ -70,10 +73,33 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.scanCard).setOnClickListener(v -> startScan());
         view.findViewById(R.id.viewAllText).setOnClickListener(v ->
                 navigate(R.id.action_home_to_history));
-        view.findViewById(R.id.logoutButton).setOnClickListener(v -> {
-            viewModel.logout();
-            NavHostFragment.findNavController(HomeFragment.this)
-                    .navigate(R.id.action_home_to_login);
+        view.findViewById(R.id.notificationButton).setOnClickListener(v ->
+                Snackbar.make(view, R.string.notifications_none, Snackbar.LENGTH_SHORT).show());
+
+        ImageView balanceToggle = view.findViewById(R.id.balanceToggle);
+        balanceToggle.setOnClickListener(v -> {
+            balanceHidden = !balanceHidden;
+            balanceToggle.setImageResource(balanceHidden
+                    ? R.drawable.ic_visibility_off : R.drawable.ic_visibility);
+            renderBalance();
+        });
+
+        com.google.android.material.floatingactionbutton.FloatingActionButton fabScan =
+                view.findViewById(R.id.fabScan);
+        fabScan.setOnClickListener(v -> startScan());
+
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav =
+                view.findViewById(R.id.bottomNav);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.menu_history) {
+                navigate(R.id.action_home_to_history);
+                return false;
+            } else if (id == R.id.menu_profile) {
+                navigate(R.id.action_home_to_profile);
+                return false;
+            }
+            return true;
         });
 
         androidx.swiperefreshlayout.widget.SwipeRefreshLayout refresh =
@@ -88,8 +114,10 @@ public class HomeFragment extends Fragment {
             greeting.setText(text);
         });
 
-        viewModel.getBalance().observe(getViewLifecycleOwner(), balance ->
-                balanceText.setText(FormatUtils.currency(balance)));
+        viewModel.getBalance().observe(getViewLifecycleOwner(), balance -> {
+            lastBalance = balance;
+            renderBalance();
+        });
 
         viewModel.getRecentTransactions().observe(getViewLifecycleOwner(), this::renderTransactions);
 
@@ -99,7 +127,21 @@ public class HomeFragment extends Fragment {
             phoneText.setText(phone);
         }
 
+        String name = QuickPayApplication.getInstance().getSessionManager().getUserName();
+        TextView avatarInitial = view.findViewById(R.id.avatarInitial);
+        if (name != null && !name.isEmpty()) {
+            avatarInitial.setText(name.substring(0, 1).toUpperCase());
+        }
+
         viewModel.load();
+    }
+
+    private void renderBalance() {
+        if (balanceHidden) {
+            balanceText.setText("৳ ••••••");
+        } else if (lastBalance != null) {
+            balanceText.setText(FormatUtils.currency(lastBalance));
+        }
     }
 
     private void renderTransactions(List<Transaction> transactions) {

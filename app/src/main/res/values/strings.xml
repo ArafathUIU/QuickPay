@@ -29,8 +29,17 @@
     <string name="recent_transactions">Recent Transactions</string>
     <string name="view_all">View all</string>
     <string name="no_transactions">No transactions yet</string>
+    <string name="no_transactions_subtitle">Your payments and transfers will appear here.</string>
+    <string name="quick_actions">Quick Actions</string>
     <string name="logout">Logout</string>
     <string name="history">History</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_scan">Scan</string>
+    <string name="nav_history">History</string>
+    <string name="nav_profile">Profile</string>
+    <string name="notifications_none">No new notifications</string>
+    <string name="profile_title">My Profile</string>
+    <string name="profile_wallet">Wallet ID</string>
 
     <string name="add_money_title">Add Money</string>
     <string name="add_money_subtitle">Simulated top-up from your bank</string>

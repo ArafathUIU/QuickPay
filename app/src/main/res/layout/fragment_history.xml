@@ -6,11 +6,26 @@
     android:background="@color/bg"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/spacing_lg"
+        android:paddingEnd="@dimen/screen_padding"
+        android:text="@string/history_title"
+        android:textColor="@color/text_primary"
+        android:textSize="24sp" />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/filterGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/spacing_xs"
+        android:paddingEnd="@dimen/screen_padding"
+        app:chipSpacingHorizontal="8dp"
+        app:singleLine="true"
         app:singleSelection="true"
         app:selectionRequired="true">
 
@@ -64,7 +79,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="16dp" />
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/screen_padding" />
 
     <TextView
         android:id="@+id/emptyText"

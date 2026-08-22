@@ -8,6 +8,9 @@
         <item name="android:colorBackground">@color/bg</item>
         <item name="colorSurface">@color/bg</item>
         <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.QuickPay" parent="Base.Theme.QuickPay" />
@@ -15,12 +18,9 @@
     <style name="Theme.QuickPay.Scan" parent="Theme.Material3.DayNight.NoActionBar" />
 
     <style name="QuickPay.ActionCard" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">16dp</item>
-        <item name="cardElevation">2dp</item>
+        <item name="cardCornerRadius">@dimen/corner_medium</item>
+        <item name="cardElevation">@dimen/elevation_low</item>
         <item name="cardBackgroundColor">@color/card_bg</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">72dp</item>
-        <item name="android:layout_margin">6dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>

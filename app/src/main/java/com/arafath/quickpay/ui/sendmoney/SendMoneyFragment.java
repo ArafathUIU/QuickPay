@@ -78,6 +78,11 @@ public class SendMoneyFragment extends Fragment {
                 recipient = state.getData();
                 recipientName.setText(recipient.getName());
                 recipientPhone.setText(recipient.getPhone());
+                TextView initial = view.findViewById(R.id.recipientInitial);
+                String name = recipient.getName();
+                if (name != null && !name.isEmpty()) {
+                    initial.setText(name.substring(0, 1).toUpperCase());
+                }
                 recipientCard.setVisibility(View.VISIBLE);
             } else if (state.isError()) {
                 recipient = null;

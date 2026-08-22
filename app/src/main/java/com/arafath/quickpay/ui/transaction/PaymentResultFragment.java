@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -86,12 +85,14 @@ public class PaymentResultFragment extends Fragment {
             case SUCCESS:
                 statusIcon.setText("✓");
                 statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.success));
+                tintCircle(view, R.color.success_light);
                 title.setText(R.string.payment_success);
                 message.setText("Transaction completed successfully.");
                 break;
             case FAILED:
                 statusIcon.setText("✕");
                 statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.danger));
+                tintCircle(view, R.color.danger_light);
                 title.setText(R.string.payment_failed);
                 message.setText(transaction.getFailureReason() != null
                         ? transaction.getFailureReason() : "Payment could not be completed.");
@@ -101,6 +102,7 @@ public class PaymentResultFragment extends Fragment {
             case REVERSED:
                 statusIcon.setText("↺");
                 statusIcon.setTextColor(ContextCompat.getColor(requireContext(), R.color.warning));
+                tintCircle(view, R.color.warning_light);
                 title.setText(R.string.payment_reversed);
                 message.setText("Your payment was reversed and the money has been returned to your wallet.");
                 reasonRow.setVisibility(View.VISIBLE);
@@ -111,6 +113,12 @@ public class PaymentResultFragment extends Fragment {
                 title.setText(R.string.processing_title);
                 message.setText(R.string.processing_subtitle);
         }
+    }
+
+    private void tintCircle(View view, int colorRes) {
+        View circle = view.findViewById(R.id.statusCircle);
+        circle.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), colorRes)));
     }
 
     private void celebrateSuccess(View view) {
