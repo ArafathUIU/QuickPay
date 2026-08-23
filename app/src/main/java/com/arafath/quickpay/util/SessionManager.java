@@ -2,6 +2,7 @@ package com.arafath.quickpay.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -11,6 +12,7 @@ import java.security.GeneralSecurityException;
 
 public class SessionManager {
 
+    private static final String TAG = "SessionManager";
     private static final String PREF_FILE = "quickpay_session";
     private static final String KEY_TOKEN = "jwt_token";
     private static final String KEY_USER_ID = "user_id";
@@ -20,24 +22,25 @@ public class SessionManager {
     private static final String KEY_WALLET_ID = "wallet_id";
 
     private final SharedPreferences prefs;
+    private final boolean isEncrypted;
 
     public SessionManager(Context context) {
-        SharedPreferences fallback = null;
         try {
             MasterKey masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build();
-            fallback = EncryptedSharedPreferences.create(
+            prefs = EncryptedSharedPreferences.create(
                     context,
                     PREF_FILE,
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
+            isEncrypted = true;
         } catch (GeneralSecurityException | IOException e) {
-            fallback = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+            Log.w(TAG, "Failed to create EncryptedSharedPreferences, authentication will be disabled", e);
+            throw new RuntimeException("Cannot initialize secure session storage. Authentication cannot proceed.");
         }
-        this.prefs = fallback;
     }
 
     public void saveSession(String token, String userId, String name, String phone, String email, String walletId) {
@@ -81,13 +84,5 @@ public class SessionManager {
 
     public String getWalletId() {
         return prefs.getString(KEY_WALLET_ID, null);
-    }
-
-    public void setUserName(String name) {
-        prefs.edit().putString(KEY_USER_NAME, name).apply();
-    }
-
-    public void setWalletId(String walletId) {
-        prefs.edit().putString(KEY_WALLET_ID, walletId).apply();
     }
 }
