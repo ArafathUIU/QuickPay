@@ -76,6 +76,10 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.notificationButton).setOnClickListener(v ->
                 Snackbar.make(view, R.string.notifications_none, Snackbar.LENGTH_SHORT).show());
 
+        view.findViewById(R.id.avatarInitial).setOnClickListener(v -> {
+            navigate(R.id.action_home_to_profile);
+        });
+
         ImageView balanceToggle = view.findViewById(R.id.balanceToggle);
         balanceToggle.setOnClickListener(v -> {
             balanceHidden = !balanceHidden;
