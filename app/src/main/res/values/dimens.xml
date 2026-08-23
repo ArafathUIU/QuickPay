@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Corner radius -->
-    <dimen name="corner_small">4dp</dimen>
+    <dimen name="corner_small">2dp</dimen>
     <dimen name="corner_medium">18dp</dimen>
     <dimen name="corner_large">32dp</dimen>
     <dimen name="corner_xlarge">32dp</dimen>
