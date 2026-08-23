@@ -5,7 +5,7 @@
     <dimen name="corner_small">8dp</dimen>
     <dimen name="corner_medium">12dp</dimen>
     <dimen name="corner_large">28dp</dimen>
-    <dimen name="corner_xlarge">24dp</dimen>
+    <dimen name="corner_xlarge">32dp</dimen>
     <dimen name="corner_round">28dp</dimen>
 
     <!-- Spacing scale -->
