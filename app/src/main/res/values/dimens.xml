@@ -12,7 +12,7 @@
     <dimen name="spacing_xs">2dp</dimen>
     <dimen name="spacing_sm">8dp</dimen>
     <dimen name="spacing_md">14dp</dimen>
-    <dimen name="spacing_lg">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
     <dimen name="spacing_xl">20dp</dimen>
     <dimen name="spacing_xxl">24dp</dimen>
     <dimen name="spacing_xxxl">32dp</dimen>
