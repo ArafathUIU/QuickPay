@@ -100,18 +100,33 @@ quickpay/
 
 ## API Endpoints (Backend)
 
-Base URL: `http://10.0.2.2:8080/api/`
+**Base URL:** `http://10.0.2.2:8080/api/`
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/auth/login` | POST | JWT authentication |
-| `/auth/register` | POST | User registration |
-| `/wallet/balance` | GET | Get current wallet balance |
-| `/wallet/add-money` | POST | Add money to wallet |
-| `/payments/send` | POST | Send money to another user |
-| `/payments/receive` | POST | Receive money via QR |
-| `/payments/merchant` | POST | Merchant QR payment validation |
-| `/transactions/history` | GET | Get transaction history |
+The backend is a **fully implemented ASP.NET Core API** (not mocked), running on port 8080 as configured in `launchSettings.json`. The Android Retrofit interfaces match the C# controllers exactly:
+
+| Android Interface | C# Controller | Path |
+|---|---|---|
+| `AuthApi.register()` | `AuthController.Register()` | `POST api/auth/register` |
+| `AuthApi.login()` | `AuthController.Login()` | `POST api/auth/login` |
+| `AuthApi.me()` | `AuthController.Me()` | `GET api/auth/me` (requires JWT token) |
+| `WalletApi.getWallet()` | `WalletController.GetWallet()` | `GET api/wallet` |
+| `WalletApi.addMoney()` | `WalletController.AddMoney()` | `POST api/wallet/add-money` |
+| `TransactionApi.sendMoney()` | `TransactionsController.Send()` | `POST api/transactions/send` |
+| `TransactionApi.getTransactions()` | `TransactionsController.GetAll()` | `GET api/transactions` |
+| `TransactionApi.getTransaction()` | `TransactionsController.GetById()` | `GET api/transactions/{id}` |
+| `MerchantApi.getMerchant()` | `MerchantsController.GetById()` | `GET api/merchants/{id}` |
+| `MerchantApi.merchantPayment()` | `PaymentsController.MerchantPayment()` | `POST api/payments/merchant` |
+| `UserApi.searchByPhone()` | `UsersController.Search()` | `GET api/users/search` |
+
+**Base URL Details:**
+- The Android app uses `10.0.2.2` which refers to the host machine's localhost when running in an emulator
+- The backend is configured in `launchSettings.json` to run on `http://0.0.0.0:8080`
+- JWT tokens are sent via the `AuthInterceptor` in the `ApiClient` (`Authorization: Bearer <token>`)
+
+**Seed Data:** The backend automatically seeds test data on startup:
+- 2 users: Akash Rahman (balance 12500) and Rahim Ahmed (balance 8000)
+- 4 merchants: ABC Coffee, XYZ Store, Rahim's Restaurant, Demo Fail Store (simulates failure)
+- Wallet and transaction data are persisted in SQLite
 
 ---
 
@@ -244,7 +259,7 @@ dependencies {
 
 ## Known Issues / TODOs
 
-- Authentication flow needs encrypted shared preferences implementation
-- Backend API currently mocked/placeholder endpoints
+- Authentication flow needs encrypted shared preferences implementation (fixed: SessionManager now throws RuntimeException if MasterKey generation fails, no insecure fallback)
+- Backend API: Fully implemented ASP.NET Core with real endpoints (Auth, Wallet, Transactions, Merchants, Payments, Users)
 - Room migrations need handling for schema changes
 - Additional edge cases for QR parsing and payment states
