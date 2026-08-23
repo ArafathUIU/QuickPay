@@ -9,7 +9,7 @@
     <dimen name="corner_round">28dp</dimen>
 
     <!-- Spacing scale -->
-    <dimen name="spacing_xs">10dp</dimen>
+    <dimen name="spacing_xs">12dp</dimen>
     <dimen name="spacing_sm">8dp</dimen>
     <dimen name="spacing_md">14dp</dimen>
     <dimen name="spacing_lg">32dp</dimen>
