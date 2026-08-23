@@ -3,7 +3,7 @@
 
     <!-- Corner radius -->
     <dimen name="corner_small">10dp</dimen>
-    <dimen name="corner_medium">12dp</dimen>
+    <dimen name="corner_medium">14dp</dimen>
     <dimen name="corner_large">16dp</dimen>
     <dimen name="corner_xlarge">20dp</dimen>
     <dimen name="corner_round">28dp</dimen>
